@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Notes app</h1>
+    <input id="notes-input" type="text" />
+    <select name="" id="filter-by">
+      <option value="edited">last edited</option>
+      <option value="created">recently created</option>
+      <option value="alphabetical">sort alphabetically</option>
+    </select>
+    <div id="notes-div"></div>
+    <button id="create-note">Create note</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+    <script src="./notes.functions.js"></script>
+    <script type="module" src="./notes-app.js"></script>
+  </body>
+</html>
