@@ -179,3 +179,82 @@ function every(array, func) {
 console.log(every([1, 3, 5], (n) => n < 10));
 console.log(every([2, 4, 16], (n) => n < 10));
 console.log(every([], (n) => n < 10));
+
+/*Given an m x n 2d grid map of '1's (land) and '0's (water), return the number of islands.
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+
+Input: grid = [
+  ["1", "1", "1", "1", "0"],
+  ["1", "1", "0", "1", "0"],
+  ["1", "1", "0", "0", "0"],
+  ["0", "0", "0", "0", "0"],
+];
+Output: 1;
+
+Input: grid = [
+  ["1", "1", "0", "0", "0"],
+  ["1", "1", "0", "0", "0"],
+  ["0", "0", "1", "0", "0"],
+  ["0", "0", "0", "1", "1"],
+];
+Output: 3;
+*/
+
+const numIslands = (grid) => {
+  let counter = 0;
+
+  const dfs = (i, j) => {
+    if (
+      i >= 0 &&
+      j >= 0 &&
+      i < grid.length &&
+      j < grid[i].length &&
+      grid[i][j] === "1"
+    ) {
+      grid[i][j] = "0";
+      dfs(i + 1, j); // top
+      dfs(i, j + 1); // right
+      dfs(i - 1, j); // bottom
+      dfs(i, j - 1); // left
+    }
+  };
+
+  for (let i = 0; i < grid.length; i += 1) {
+    for (let j = 0; j < grid[i].length; j += 1) {
+      if (grid[i][j] === "1") {
+        counter += 1;
+        dfs(i, j);
+      }
+    }
+  }
+
+  return counter;
+};
+
+/*Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].*/
+
+const merge = (intervals) => {
+  if (intervals.length < 2) return intervals;
+
+  intervals.sort((a, b) => a[0] - b[0]);
+
+  const result = [];
+  let previous = intervals[0];
+
+  for (let i = 1; i < intervals.length; i += 1) {
+    if (previous[1] >= intervals[i][0]) {
+      previous = [previous[0], Math.max(previous[1], intervals[i][1])];
+    } else {
+      result.push(previous);
+      previous = intervals[i];
+    }
+  }
+
+  result.push(previous);
+
+  return result;
+};
